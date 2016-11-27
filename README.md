@@ -31,6 +31,7 @@ Install
 
 1. place in rails /lib/staytus_api_v2
 2. add Mount to routes.rb
+3. gem uninstall moonroap (beacuse its a namespace hog and wont give up the ghost with "api/v*")
 3. Profit, from restful (GET,POST,PATCH,DELETE) routes at /api/v2/issues, /api/v2/issues/:uuid/updates, /api/v2/issues/:uuid/updates/:update_identifier
 
 
