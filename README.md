@@ -9,7 +9,7 @@ Important
 In Staytus there is a bit of confusion around the fields `state` and `status`.
 The difference is not clear to the api consumer. And in order to make the distinction a little clearer the following action has been made.
 
-`status` becomes `current_action` 
+`state` becomes `current_action` 
 
 Which can have one of the following values: ['investigating', 'identified', 'monitoring', 'resolved']
 
