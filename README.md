@@ -21,7 +21,9 @@ But why?
 
 1. Staytus is not really implemented using good REST standards (i.e. using POST for GET events)
 2. requires multiple queries for issue_updates to get the base issue details
-3. I wanted to build something using grape
+3. id or identifier? make a choice and stick with it
+4. UUID or short UUID? make a choice and stick with it
+5. I wanted to build something using grape
 
 
 Install
