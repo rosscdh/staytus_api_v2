@@ -51,9 +51,9 @@ Use https://httpie.org because who uses curl anymore
 
 
 ```
-#
-# Issues
-#
+#--------------------------------------------------------------------------------
+# Oh no! a new Event has happened, quickly lets tell the world
+#--------------------------------------------------------------------------------
 
 # Show me issues
 http GET http://localhost:5000/api/v2/issues
@@ -70,17 +70,26 @@ http PATCH http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944c
 # Nah, Delete this dumb issue
 http DELETE http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f
 
-#
-# Sub issues
-#
+# --------------------------------------------------------------------------------
+# Event Update
+# Ah great, we are working our way through the issue resolution chain of events
+# ['investigating', 'identified', 'monitoring', 'resolved']
+# --------------------------------------------------------------------------------
 
 # Get the issues updates
 http GET http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f/updates
 
+#
 # Create a new update
+# you would normally use this event the most, as it keeps adding new sub-issues and keeps the history of the event
+# work through the response action chain like so: ['investigating', 'identified', 'monitoring', 'resolved']
+#
 http POST http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f/updates text='some awesome news here' status='operational' current_action='investigating'
 
+#
 # Update an existing update
+# You could if you wanted update an existing sub-issue
+#
 http PATCH http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f/updates/ab2a4e2c3cb8 text='Argh' status='degraded-performance' current_action='investigating'
 
 # Delete an update
