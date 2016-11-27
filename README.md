@@ -19,7 +19,7 @@ Now its much clearer (for me anyway) which field represents which business objec
 But why?
 --------
 
-1. Staytus is not really implemented using good REST standards (i.e. using POST for GET events)
+1. Staytus is not really implemented using good REST standards (i.e. It uses for whatever reason POST for events that should be GET and makes assumptions about naming conventions and using /create instead of POST on base objects)
 2. requires multiple queries for issue_updates to get the base issue details
 3. id or identifier? make a choice and stick with it
 4. UUID or short UUID? make a choice and stick with it
