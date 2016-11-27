@@ -66,7 +66,7 @@ http GET http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4
 # Create a new update
 http POST http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f/updates text='some awesome news here' status='operational' state='investigating'
 
-# Create a new update
+# Update an existing update
 http PATCH http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f/updates/ab2a4e2c3cb8 text='Argh' status='degraded-performance' state='investigating'
 
 # Delete an update
