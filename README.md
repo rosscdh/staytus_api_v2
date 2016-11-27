@@ -28,3 +28,44 @@ Install
   #
   mount StaytusApiV2::API => '/'
 ```
+
+
+Examples
+--------
+
+Use https://httpie.org because who uses curl anymore
+
+
+```
+#
+# Issues
+#
+
+# Show me issues
+http GET http://localhost:5000/api/v2/issues
+
+# Create a new issue
+http POST http://localhost:5000/api/v2/issues title='A title' text='text goes here' status='operational' state='investigating'
+
+# Show me the issue again please
+http GET http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f
+
+# Nah, i didnt like that text, update the issue
+http PATCH http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f title='My new title' text='Some new text' status='operational' state='investigating'
+
+# Nah, Delete this dumb issue
+http DELETE http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f
+
+#
+# Sub issues
+#
+
+# Get the issues updates
+http GET http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f/updates
+
+# Create a new update
+http POST http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f/updates title='An update to the main issue' text='some awesome news here' status='operational' state='investigating'
+
+# Delete an update
+http DELETE http://localhost:5000/api/v2/issues/fc43ebb4-90be-4164-94a9-ba023944ce4f/updates/ab2a4e2c3cb8
+```
