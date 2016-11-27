@@ -56,7 +56,7 @@ module StaytusApiV2
           :initial_update     => params[:text],
           :state              => params[:state],
           :service_status_id  => ServiceStatus.where(permalink: params[:status]).first.id,
-          :services           => params[:services] || Service.all,
+          :services           => Service.where(permalink: params[:services]) || Service.all,
           :notify             => params[:notify],
         })
         present issue, with: StaytusApiV2::Entities::Issue
@@ -78,7 +78,7 @@ module StaytusApiV2
           :title              => params[:title],
           :state              => params[:state],
           :service_status_id  => ServiceStatus.where(permalink: params[:status]).first.id,
-          :services           => params[:services] || Service.all,
+          :services           => Service.where(permalink: params[:services]) || Service.all,
           :notify             => params[:notify],
         })
         present issue, with: StaytusApiV2::Entities::Issue
