@@ -1,4 +1,3 @@
-require 'byebug'
 
 module StaytusApiV2
   class API < Grape::API
@@ -17,7 +16,7 @@ module StaytusApiV2
           true
         else
           token = ApiToken.where(:token => request.headers['X-Auth-Token'], :secret => request.headers['X-Auth-Secret']).first
-          byebug
+
           if token.is_a?(ApiToken)
             token
           else
