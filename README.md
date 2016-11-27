@@ -6,8 +6,15 @@ Restful api for the fabulous: https://github.com/adamcooke/staytus
 Important
 ---------
 
-We have hopefully made the difference between `state` and `states` a little more clear by requiring that
-you pass in `current_action` which is the staytus.state and one of ['investigating', 'identified', 'monitoring', 'resolved']
+In Staytus there is a bit of confusion around the fields `state` and `status`.
+The difference is not clear to the api consumer. And in order to make the distinction a little clearer the following action has been made.
+
+`status` becomes `current_action` 
+
+Which can have one of the following values: ['investigating', 'identified', 'monitoring', 'resolved']
+
+Now its much clearer (for me anyway) which field represents which business object.
+
 
 But why?
 --------
