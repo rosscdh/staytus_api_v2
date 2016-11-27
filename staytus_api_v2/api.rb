@@ -45,7 +45,7 @@ module StaytusApiV2
       params do
         requires :title, :type => String, desc: 'A title for this Issue.'
         requires :text, :type => String, desc: 'Initial Text for this Isssue.'
-        requires :state, :type => String, values: Issue::STATES, desc: "One of ${Issue::STATES}"
+        requires :current_action, :type => String, values: Issue::STATES, desc: "One of ${Issue::STATES}"
         requires :status, :type => String, values: ServiceStatus.all.pluck(:permalink), desc: "One of ${ServiceStatus.all.pluck(:permalink)}."
         optional :services, :type => Array, values: Service.all.pluck(:permalink), desc: "One of ${Service.all.pluck(:permalink)}"
         optional :notify, :type => Boolean, default: false, desc: 'Should we Notify Subscribers.'
@@ -54,7 +54,7 @@ module StaytusApiV2
         issue = Issue.create!({
           :title              => params[:title],
           :initial_update     => params[:text],
-          :state              => params[:state],
+          :state              => params[:current_action],
           :service_status_id  => ServiceStatus.where(permalink: params[:status]).first.id,
           :services           => Service.where(permalink: params[:services]) || Service.all,
           :notify             => params[:notify],
@@ -67,7 +67,7 @@ module StaytusApiV2
         requires :identifier, type: String, desc: 'Issue identifier UUID.'
 
         requires :title, :type => String, desc: 'A title for this Issue.'
-        requires :state, :type => String, values: Issue::STATES, desc: "One of ${Issue::STATES}"
+        requires :current_action, :type => String, values: Issue::STATES, desc: "One of ${Issue::STATES}"
         requires :status, :type => String, values: ServiceStatus.all.pluck(:permalink), desc: "One of ${ServiceStatus.all.pluck(:permalink)}."
         optional :services, :type => Array, values: Service.all.pluck(:permalink), desc: "One of ${Service.all.pluck(:permalink)}"
         optional :notify, :type => Boolean, default: false, desc: 'Should we Notify Subscribers.'
@@ -76,7 +76,7 @@ module StaytusApiV2
         issue = Issue.find_by_identifier(params[:identifier])
         issue.update!({
           :title              => params[:title],
-          :state              => params[:state],
+          :state              => params[:current_action],
           :service_status_id  => ServiceStatus.where(permalink: params[:status]).first.id,
           :services           => Service.where(permalink: params[:services]) || Service.all,
           :notify             => params[:notify],
@@ -121,14 +121,14 @@ module StaytusApiV2
       params do
         requires :identifier, type: String, desc: 'Issue ID.'
 
-        requires :state, type: String, desc: 'New state'
+        requires :current_action, type: String, desc: 'Your current action'
         requires :text, type: String, desc: 'Update Message'
       end
       post ':identifier/updates' do
         issue = Issue.find_by_identifier!(params[:identifier])
         update = IssueUpdate.create({
           :issue    => issue,
-          :state    => params[:state],
+          :state    => params[:current_action],
           :text     => params[:text]
         })
         present update, with: StaytusApiV2::Entities::IssueUpdate
@@ -150,14 +150,14 @@ module StaytusApiV2
         requires :identifier, type: String, desc: 'Issue ID.'
         requires :update_identifier, type: String, desc: 'Issue Update ID.'
 
-        requires :state, type: String, desc: 'New state'
+        requires :current_action, type: String, desc: 'Your current action'
         requires :text, type: String, desc: 'Update Message'
       end
       patch ':identifier/updates/:update_identifier' do
         issue = Issue.find_by_identifier!(params[:identifier])
         update = issue.updates.find_by_identifier!(params[:update_identifier])
         update.update({
-          :state    => params[:state],
+          :state    => params[:current_action],
           :text     => params[:text],
         })
         present update, with: StaytusApiV2::Entities::IssueUpdate
