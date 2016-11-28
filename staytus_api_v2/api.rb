@@ -9,6 +9,8 @@ module StaytusApiV2
     format :json
     prefix :api
 
+    rescue_from :all, except: :validation_errors
+
     helpers do
       def token
         #@current_user ||= User.authorize!(env)
@@ -131,7 +133,7 @@ module StaytusApiV2
           :state    => params[:current_action],
           :text     => params[:text]
         })
-        present update, with: StaytusApiV2::Entities::IssueUpdate
+        present issue, with: StaytusApiV2::Entities::Issue
       end
 
       desc 'Get an issue update'
